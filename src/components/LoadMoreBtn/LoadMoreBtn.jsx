@@ -1,5 +1,12 @@
-function LoadMoreBtn() {
-  return <button type="button">LoadMoreBtn</button>;
+function LoadMoreBtn({ setPage, page }) {
+  const handleLoadMoreClick = () => {
+    setPage(page + 1);
+  };
+  return (
+    <button type="button" onClick={handleLoadMoreClick}>
+      LoadMoreBtn
+    </button>
+  );
 }
 
 export default LoadMoreBtn;
