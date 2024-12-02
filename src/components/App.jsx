@@ -11,29 +11,51 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(0);
   const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [totalPage, setTotalPage] = useState(0);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
+    if (!searchQuery) return;
+
     const getApi = async () => {
       try {
+        setIsLoading(true);
+        setIsError(false);
+
         const res = await getImages(searchQuery, page);
-        setImages((prev) => [...prev, ...res.data.results]);
-        console.log("results:", res.data.results);
+
+        if (res) {
+          setImages((prev) => [...prev, ...res.data.results]);
+          setTotalPage(res.data.total_pages);
+        } else {
+          console.log("no results");
+        }
       } catch (error) {
         console.log(error);
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     getApi();
   }, [searchQuery, page]);
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    setPage(0);
+    setImages([]);
+  };
+
   return (
     <>
-      <SearchBar setSearchQuery={setSearchQuery} />
+      <SearchBar handleSearch={handleSearch} />
       <ImageGallery images={images} />
-      <LoadMoreBtn setPage={setPage} page={page} />
-      <ErrorMessage />
+      {totalPage > 0 && <LoadMoreBtn setPage={setPage} page={page} />}
+      {isError && <ErrorMessage />}
       <ImageModal />
-      <Loader />
+      {isLoading && <Loader />}
     </>
   );
 }

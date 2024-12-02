@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-function SearchBar({ setSearchQuery }) {
+function SearchBar({ handleSearch }) {
   const [inputValue, setInputValue] = useState("");
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    setSearchQuery(inputValue.trim());
+    handleSearch(inputValue.trim());
   };
 
   return (
