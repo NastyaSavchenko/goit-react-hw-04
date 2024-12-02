@@ -1,4 +1,4 @@
-function LoadMoreBtn({ setPage, page }) {
+function LoadMoreBtn({ setPage }) {
   const handleLoadMoreClick = () => {
     setPage((prev) => prev + 1);
   };

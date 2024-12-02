@@ -1,11 +1,19 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 function SearchBar({ handleSearch }) {
   const [inputValue, setInputValue] = useState("");
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    handleSearch(inputValue.trim());
+    !inputValue
+      ? toast.error("Oops! It seems like you forgot to type. 🫤")
+      : handleSearch(inputValue);
+  };
+
+  const handleChangeInput = (e) => {
+    const searchQuery = e.target.value.trim();
+    setInputValue(searchQuery);
   };
 
   return (
@@ -16,7 +24,7 @@ function SearchBar({ handleSearch }) {
           autoComplete="off"
           autoFocus
           placeholder="Search images and photos"
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={handleChangeInput}
           value={inputValue}
         />
         <button type="submit">Search</button>
