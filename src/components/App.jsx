@@ -9,7 +9,7 @@ import { getImages } from "../api";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [totalPage, setTotalPage] = useState(0);
@@ -43,16 +43,16 @@ function App() {
   }, [searchQuery, page]);
 
   const handleSearch = (query) => {
-    setSearchQuery(query);
-    setPage(0);
     setImages([]);
+    setSearchQuery(query);
+    setPage(1);
   };
 
   return (
     <>
       <SearchBar handleSearch={handleSearch} />
       <ImageGallery images={images} />
-      {totalPage > 0 && <LoadMoreBtn setPage={setPage} page={page} />}
+      {totalPage > page && <LoadMoreBtn setPage={setPage} page={page} />}
       {isError && <ErrorMessage />}
       <ImageModal />
       {isLoading && <Loader />}

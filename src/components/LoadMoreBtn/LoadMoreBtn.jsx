@@ -1,6 +1,6 @@
 function LoadMoreBtn({ setPage, page }) {
   const handleLoadMoreClick = () => {
-    setPage(page + 1);
+    setPage((prev) => prev + 1);
   };
   return (
     <button type="button" onClick={handleLoadMoreClick}>
