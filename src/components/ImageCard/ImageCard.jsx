@@ -1,6 +1,8 @@
+import s from "./ImageCard.module.css";
+
 function ImageCard({ url, alt }) {
   return (
-    <div>
+    <div className={s.imgBox}>
       <img src={url} alt={alt} />
     </div>
   );

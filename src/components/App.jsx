@@ -15,6 +15,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [totalPage, setTotalPage] = useState(0);
   const [isError, setIsError] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImg, setModalImg] = useState(null);
 
   useEffect(() => {
     if (totalPage === page) {
@@ -39,7 +41,7 @@ function App() {
 
         if (res.data.total_pages === 0)
           toast.error(
-            `🥺 Oops! We couldn't find any results for "${searchQuery}`
+            `🥺 Oops! We couldn't find any results for ${searchQuery}`
           );
       } catch (error) {
         console.log(error);
@@ -58,14 +60,28 @@ function App() {
     setPage(1);
   };
 
+  const closeModal = () => {
+    setModalImg(null);
+    setIsModalOpen(false);
+  };
   return (
     <>
       <SearchBar handleSearch={handleSearch} />
-      <ImageGallery images={images} />
+      <ImageGallery
+        images={images}
+        setModalImg={setModalImg}
+        setIsModalOpen={setIsModalOpen}
+      />
+      {isLoading && <Loader />}
       {totalPage > page && <LoadMoreBtn setPage={setPage} page={page} />}
       {isError && <ErrorMessage />}
-      <ImageModal />
-      {isLoading && <Loader />}
+      {isModalOpen && (
+        <ImageModal
+          image={modalImg}
+          closeModal={closeModal}
+          isModalOpen={isModalOpen}
+        />
+      )}
     </>
   );
 }

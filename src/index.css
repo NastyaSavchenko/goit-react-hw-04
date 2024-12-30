@@ -3,10 +3,7 @@ a:hover {
 }
 
 body {
-  margin: 0;
-  display: flex;
-  padding: 40px;
-  min-width: 320px;
+  margin: 0 0 100px;
   min-height: 100vh;
 }
 
@@ -48,6 +45,7 @@ main {
   justify-content: center;
   align-items: center;
   gap: 40px;
+  padding: 40px;
 }
 
 a {
@@ -84,9 +82,4 @@ input {
   outline: none;
   padding: 10px;
   color: black;
-}
-
-input:hover,
-input:focus {
-  border-color: blue;
 }
