@@ -15,8 +15,13 @@ function ImageGallery({ images, setIsModalOpen, setModalImg }) {
           urls: { small, full },
         } = image;
         return (
-          <li key={id} onClick={() => handleImageClick(full)}>
-            <ImageCard url={small} alt={alt_description} />
+          <li key={id}>
+            <ImageCard
+              url={small}
+              alt={alt_description}
+              full={full}
+              handleImageClick={handleImageClick}
+            />
           </li>
         );
       })}
